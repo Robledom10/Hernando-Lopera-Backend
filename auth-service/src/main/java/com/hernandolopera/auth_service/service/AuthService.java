@@ -28,10 +28,10 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${jwt.secret}")
+    @Value("${application.security.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration}")
+    @Value("${application.security.jwt.access-token-expiration}")
     private long jwtExpiration;
 
     public AuthService(UserRepository userRepository,

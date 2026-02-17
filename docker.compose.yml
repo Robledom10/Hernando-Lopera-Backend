@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: auth-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: auth_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - auth-network
+
+  auth-service:
+    build: .
+    container_name: auth-service
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+    ports:
+      - "8081:8081"
+    networks:
+      - auth-network
+
+volumes:
+  mysql_data:
+
+networks:
+  auth-network:
